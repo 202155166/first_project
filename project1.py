@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+import matplotlib
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
@@ -20,7 +22,7 @@ for i in tr:
     list2 = []
     td = tr[cyc].find_all('td')
     cyc += 1
-    if count == 1:
+    if count == 2:
         break
 
     for n in td:
@@ -32,3 +34,32 @@ for i in tr:
     print('')
     list.append(list2)
     count += 1
+
+list_t1 = list[0]
+list_j = list[1]
+
+list_t = []
+for i in list_t1:
+    i = i.replace(',','')
+    i = int(i)
+    list_t.append(i)
+
+list_j = [float(i) for i in list_j]
+
+list_y = []
+for y in range(2009,2020):
+    list_y.append(y)
+
+print(list_y)
+print(list_t)
+print(list_j)
+
+matplotlib.rcParams['axes.unicode_minus']=False
+plt.rc('font', family='Malgun Gothic')
+plt.plot(list_y,list_t,color='purple')
+plt.plot(list_y,list_j,color='lightblue')
+plt.title('전체 형법범죄')
+plt.xticks(list_y)
+plt.xlabel('연도')
+plt.ylabel('인구 십만 명당 건수')
+plt.show()
